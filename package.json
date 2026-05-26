@@ -1,7 +1,7 @@
 {
   "name": "electron-app",
   "description": "Electron desktop application",
-  "author": "Your Name",
+  "author": "oday-dev",
   "private": true,
   "version": "0.0.0",
   "type": "module",
