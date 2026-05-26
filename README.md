@@ -207,43 +207,56 @@ Each command runs a full build and then packages the application for the target 
 
 # 🎨 Tailwind CSS
 
-Tailwind CSS is now configured for the React frontend.
+Tailwind CSS is configured for the React frontend. The project includes `tailwind.config.cjs` and `postcss.config.cjs`, and `src/index.css` imports Tailwind utilities.
 
-The project includes `tailwind.config.cjs` and `postcss.config.cjs`, and the CSS entry file imports Tailwind utilities.
+Design note: the app uses a minimal CSS-variables approach for colors. `src/index.css` exposes two variables:
+
+- `--bg` — page background color
+- `--text` — page foreground / primary text color
+
+There are class-based dark-mode overrides in `src/index.css` (`.dark :root { ... }`) and Tailwind is configured with `darkMode: 'class'` so `dark:` variants work.
+
+Tailwind theme has been extended to expose CSS-variable-based color tokens so you can use these utility class names:
+
+- `bg-bg` — background using `--bg`
+- `text-fg` — foreground using `--text`
+- `bg-accent` / `text-accent` — accent (mapped to `--accent`)
 
 Example usage:
 
 ```tsx
-<button className="bg-blue-500 text-white px-4 py-2 rounded">
-  Click Me
-</button>
+// use the background/foreground tokens
+<main className="min-h-screen flex items-center justify-center bg-bg text-fg">
+  <h1 className="text-3xl font-semibold">Hello</h1>
+  <button className="ml-4 px-3 py-1 rounded bg-accent text-white">Action</button>
+</main>
 ```
 
 ## 🌗 Dark / Light Mode
 
-Tailwind is configured to use class-based dark mode (`darkMode: 'class'`) so you can use the `dark:` variant in your components (for example `dark:bg-slate-900`).
+The project includes a tiny theme helper at `src/theme.ts` that:
 
-A small theme utility has been added at `src/theme.ts` which:
+- initializes theme from `localStorage` or the user's `prefers-color-scheme`
+- applies the `dark` class on the root element when dark mode is active
+- exposes `toggleTheme()` to switch modes and persist the choice
 
-- initializes the initial theme from `localStorage` or the user's `prefers-color-scheme`
-- applies the `dark` CSS class on the root element when dark mode is active
-- exposes a `toggleTheme()` function to switch modes and persist the choice
-
-Usage example in a React component:
+Usage example:
 
 ```tsx
 import { toggleTheme } from './theme'
 
 function ThemeToggle() {
   return (
-    <button onClick={() => toggleTheme()} className="px-3 py-1 rounded bg-slate-200 dark:bg-slate-800">
+    <button onClick={() => toggleTheme()} className="px-3 py-1 rounded bg-bg text-fg dark:bg-bg">
       Toggle theme
     </button>
   )
 }
 ```
 
-Tailwind's `dark:` variants will respond to the presence of the `dark` class on the root element.
+Tailwind's `dark:` variants respond to the presence of the `dark` class on the root element.
+
+If you use VS Code, reload the window after these changes so the Tailwind IntelliSense extension picks up `tailwind.config.cjs` and the `.vscode/settings.json` mapping.
 
 ---
 
