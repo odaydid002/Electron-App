@@ -79,29 +79,33 @@ npm install
 
 # 💻 Development
 
-This project uses separate processes for React and Electron during development.
+This project uses a parallel development workflow where the React dev server and Electron app run together.
 
 ---
 
-## Start React Development Server
+## Start Development
+
+```bash
+npm run dev
+```
+
+This runs the Vite frontend and Electron app in parallel for a seamless development experience.
+
+---
+
+## Alternative: Run Servers Separately
+
+If you prefer separate terminals, start the Vite server first:
 
 ```bash
 npm run dev:r
 ```
 
-This starts the Vite frontend server.
-
----
-
-## Start Electron
-
-Open another terminal and run:
+Then launch Electron in a second terminal:
 
 ```bash
 npm run dev:e
 ```
-
-This launches the Electron application.
 
 ---
 
@@ -157,6 +161,7 @@ npm run lint
 | Script | Description |
 |---|---|
 | `npm run clean` | Remove `dist-react` and `dist-electron` folders |
+| `npm run dev` | Run the React dev server and Electron app in parallel |
 | `npm run dev:r` | Start Vite React dev server |
 | `npm run dev:e` | Launch Electron app against the dev server |
 | `npm run build` | Build React frontend and transpile Electron sources |
