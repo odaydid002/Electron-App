@@ -219,6 +219,32 @@ Example usage:
 </button>
 ```
 
+## 🌗 Dark / Light Mode
+
+Tailwind is configured to use class-based dark mode (`darkMode: 'class'`) so you can use the `dark:` variant in your components (for example `dark:bg-slate-900`).
+
+A small theme utility has been added at `src/theme.ts` which:
+
+- initializes the initial theme from `localStorage` or the user's `prefers-color-scheme`
+- applies the `dark` CSS class on the root element when dark mode is active
+- exposes a `toggleTheme()` function to switch modes and persist the choice
+
+Usage example in a React component:
+
+```tsx
+import { toggleTheme } from './theme'
+
+function ThemeToggle() {
+  return (
+    <button onClick={() => toggleTheme()} className="px-3 py-1 rounded bg-slate-200 dark:bg-slate-800">
+      Toggle theme
+    </button>
+  )
+}
+```
+
+Tailwind's `dark:` variants will respond to the presence of the `dark` class on the root element.
+
 ---
 
 # 🧠 Recommended VSCode Extensions
