@@ -9,7 +9,7 @@
   "scripts": {
     "clean": "if exist dist rmdir /s /q dist && if exist dist-electron rmdir /s /q dist-electron && if exist dist-react rmdir /s /q dist-react",
     "dev:r": "vite",
-    "dev:e": "cross-env NODE_ENV=development electron .",
+    "dev:e": "npm run transpile:electron && cross-env NODE_ENV=development electron .",
     "build": "npm run clean && tsc -b && npm run transpile:electron && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
