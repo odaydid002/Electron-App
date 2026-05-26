@@ -33,14 +33,11 @@ electron-app/
 │   │   ├── main.ts
 │   │   └── tsconfig.json
 │   │
-│   ├── components/         # Reusable React components
-│   ├── pages/              # Application pages
-│   ├── hooks/              # Custom hooks
-│   ├── utils/              # Utility functions
 │   ├── assets/             # Static assets
+│   ├── App.css
 │   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css
+│   ├── index.css
+│   └── main.tsx
 │
 ├── vite.config.ts
 ├── tsconfig.json
@@ -110,30 +107,31 @@ This launches the Electron application.
 
 # 📦 Build Project
 
-## Build React Application
+## Build Project
 
 ```bash
 npm run build
 ```
 
-Output directory:
+This command cleans old builds, compiles TypeScript, transpiles the Electron main process, and builds the React frontend.
+
+Output directories:
 
 ```bash
 /dist-react
+/dist-electron
 ```
 
----
-
-## Transpile Electron TypeScript
+You can also compile only the Electron main process:
 
 ```bash
 npm run transpile:electron
 ```
 
-Output directory:
+And clean generated build folders with:
 
 ```bash
-/dist-electron
+npm run clean
 ```
 
 ---
@@ -158,12 +156,16 @@ npm run lint
 
 | Script | Description |
 |---|---|
+| `npm run clean` | Remove `dist-react` and `dist-electron` folders |
 | `npm run dev:r` | Start Vite React dev server |
-| `npm run dev:e` | Launch Electron app |
-| `npm run build` | Build React application |
+| `npm run dev:e` | Launch Electron app against the dev server |
+| `npm run build` | Build React frontend and transpile Electron sources |
 | `npm run transpile:electron` | Compile Electron TypeScript |
-| `npm run preview` | Preview production build |
+| `npm run preview` | Preview the production React build |
 | `npm run lint` | Run ESLint |
+| `npm run dist:mac` | Build a macOS package with electron-builder |
+| `npm run dist:win` | Build a Windows package with electron-builder |
+| `npm run dist:linux` | Build a Linux package with electron-builder |
 
 ---
 
@@ -189,23 +191,25 @@ webPreferences: {
 
 # 📦 Production Packaging
 
-You can package the application using tools like:
+This repository is configured to package releases with `electron-builder`.
 
-- electron-builder
-- electron-forge
-- electron-packager
-
-Example installation:
+Use the provided npm scripts to produce platform builds:
 
 ```bash
-npm install electron-builder --save-dev
+npm run dist:mac
+npm run dist:win
+npm run dist:linux
 ```
+
+Each command runs a full build and then packages the application for the target OS.
 
 ---
 
 # 🎨 Tailwind CSS
 
-Tailwind is fully integrated into the React frontend.
+Tailwind CSS is now configured for the React frontend.
+
+The project includes `tailwind.config.cjs` and `postcss.config.cjs`, and the CSS entry file imports Tailwind utilities.
 
 Example usage:
 
@@ -220,7 +224,6 @@ Example usage:
 # 🧠 Recommended VSCode Extensions
 
 - ESLint
-- Tailwind CSS IntelliSense
 - Prettier
 - Error Lens
 
