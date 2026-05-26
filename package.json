@@ -1,16 +1,22 @@
 {
   "name": "electron-app",
+  "description": "Electron desktop application",
+  "author": "Your Name",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "src/electron/main.ts",
+  "main": "dist-electron/main.js",
   "scripts": {
+    "clean": "if exist dist rmdir /s /q dist && if exist dist-electron rmdir /s /q dist-electron && if exist dist-react rmdir /s /q dist-react",
     "dev:r": "vite",
     "dev:e": "electron .",
-    "build": "tsc -b && vite build",
+    "build": "npm run clean && tsc -b && npm run transpile:electron && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "transpile:electron": "tsc --project src/electron/tsconfig.json"
+    "transpile:electron": "tsc --project src/electron/tsconfig.json",
+    "dist:mac": "npm run build && electron-builder --mac --arm64",
+    "dist:win": "npm run build && electron-builder --win --x64",
+    "dist:linux": "npm run build && electron-builder --linux --x64"
   },
   "dependencies": {
     "react": "^19.2.6",

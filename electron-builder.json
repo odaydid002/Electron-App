@@ -1,6 +1,7 @@
 {
     "appId": "com.oday-dev.electron-app",
     "files": ["dist-electron", "dist-react"],
+    "icon": "./desktopIcon.png",
     "mac": {
         "target": "dmg"
     },
