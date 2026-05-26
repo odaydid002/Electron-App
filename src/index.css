@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+	--bg: #ffffff; /* background */
+	--text: #111827; /* foreground */
+}
+
+.dark :root {
+	--bg: #0b1220;
+	--text: #e6edf3;
+}
+
+/* Ensure the document uses variables (keeps visuals minimal) */
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--text);
+}
+
+
