@@ -1,8 +1,8 @@
 {
     "appId": "com.oday-dev.electron-app",
     "files": ["dist-electron", "dist-react"],
+    "extraResources": ["dist-electron/preload.cjs"],
     "icon": "./desktopIcon.png",
-    "extraResources": ["/electron-dist/preload.cjs"],
     "mac": {
         "target": "dmg"
     },
