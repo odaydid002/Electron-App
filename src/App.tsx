@@ -1,5 +1,8 @@
 import './App.css'
 
+// @ts-ignore
+window.electron.testMethode();
+
 function App() {
   return (
     <></>
