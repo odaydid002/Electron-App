@@ -40,6 +40,7 @@ electron-app/
 │   └── main.tsx
 │
 ├── vite.config.ts
+├── types.d.ts            # Global TypeScript declarations
 ├── tsconfig.json
 ├── package.json
 └── README.md
@@ -55,6 +56,7 @@ electron-app/
 - Vite
 - Tailwind CSS
 - ESLint
+- Custom root `types.d.ts` for shared type declarations
 
 ---
 
