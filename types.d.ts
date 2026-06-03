@@ -1,9 +1,17 @@
-type EventPayLoadMapping = {
-    test: null;
+type Test = {
+    message: string;
 }
+
+type EventPayLoadMapping = {
+    test: Test;
+    getStatic: string;
+}
+
+type UnsubscribeFunction = () => void;
 
 interface Window {
     electron: {
-        testMethode: () => void;
+        subscribeTest: (callback: (message: Test) => void) => UnsubscribeFunction;
+        getStatic: () => Promise<string>;
     }
 }
