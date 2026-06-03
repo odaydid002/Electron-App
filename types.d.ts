@@ -1,10 +1,9 @@
 type EventPayLoadMapping = {
-    statistics: Statistics;
-    getStaticData: StaticData;
+    test: null;
 }
 
 interface Window {
     electron: {
-        isDev: () => boolean;
+        testMethode: () => void;
     }
 }
