@@ -2,6 +2,7 @@ import {app, BrowserWindow} from 'electron';
 import {ipcMainHandle, ipcWebContentsSend, isDev } from './util.js';
 import {getPreloadPath, getUIPath } from './pathResolver.js';
 import { createTray } from './tray.js';
+import { createMenu } from './menu.js';
 
 app.on('ready', ()=>{
     const mainWindow = new BrowserWindow({
@@ -23,6 +24,7 @@ app.on('ready', ()=>{
 
     createTray(mainWindow); 
     handleCloseEvent(mainWindow); 
+    createMenu(mainWindow);
 })
 
 function pollTest(mainWindow: BrowserWindow) {
