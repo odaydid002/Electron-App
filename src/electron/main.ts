@@ -1,7 +1,6 @@
-import {app, BrowserWindow, Tray} from 'electron';
-import { ipcMainHandle, ipcWebContentsSend, isDev } from './util.js';
-import { getAssetsPath, getPreloadPath, getUIPath } from './pathResolver.js';
-import path from 'path';
+import {app, BrowserWindow} from 'electron';
+import {ipcMainHandle, ipcWebContentsSend, isDev } from './util.js';
+import {getPreloadPath, getUIPath } from './pathResolver.js';
 import { createTray } from './tray.js';
 
 app.on('ready', ()=>{
