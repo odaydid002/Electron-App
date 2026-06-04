@@ -29,4 +29,10 @@ export function createTray(mainWindow: BrowserWindow){
             },
         ]))
 
+        tray.on("double-click", () => {
+            mainWindow.show();
+            if(app.dock){
+                app.dock.show()
+            }
+        })
 }
