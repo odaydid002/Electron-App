@@ -1,6 +1,7 @@
-import {app, BrowserWindow} from 'electron';
+import {app, BrowserWindow, Tray} from 'electron';
 import { ipcMainHandle, ipcWebContentsSend, isDev } from './util.js';
-import { getPreloadPath, getUIPath } from './pathResolver.js';
+import { getAssetsPath, getPreloadPath, getUIPath } from './pathResolver.js';
+import path from 'path';
 
 app.on('ready', ()=>{
     const mainWindow = new BrowserWindow({
@@ -19,7 +20,8 @@ app.on('ready', ()=>{
     ipcMainHandle('getStatic', () => {
         return staticTest();
     })
-    
+
+    new Tray(path.join(getAssetsPath(), 'trayIcon.png'))
 })
 
 function pollTest(mainWindow: BrowserWindow) {
