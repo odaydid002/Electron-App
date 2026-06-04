@@ -2,6 +2,7 @@ import {app, BrowserWindow, Tray} from 'electron';
 import { ipcMainHandle, ipcWebContentsSend, isDev } from './util.js';
 import { getAssetsPath, getPreloadPath, getUIPath } from './pathResolver.js';
 import path from 'path';
+import { createTray } from './tray.js';
 
 app.on('ready', ()=>{
     const mainWindow = new BrowserWindow({
@@ -21,16 +22,8 @@ app.on('ready', ()=>{
         return staticTest();
     })
 
-    const trayIcon =
-        process.platform === 'win32'
-            ? 'trayIcon.ico'
-            : process.platform === 'darwin'
-            ? 'trayIconTemplate.png'
-            : 'trayIcon.png';
-
-    const tray = new Tray(path.join(getAssetsPath(), trayIcon));
-
-    tray.setToolTip('Electron App');
+    createTray(mainWindow); 
+    handleCloseEvent(mainWindow); 
 })
 
 function pollTest(mainWindow: BrowserWindow) {
@@ -43,4 +36,30 @@ function pollTest(mainWindow: BrowserWindow) {
 
 function staticTest(){
     return 'This is message from backend'
+}
+
+function handleCloseEvent(mainWindow: BrowserWindow){
+
+    let willClose = false;
+
+    mainWindow.on('close', (event) => {
+
+        if (willClose) {
+            return;
+        }
+
+        event.preventDefault();
+        mainWindow.hide();
+        if (app.dock) {
+            app.dock.hide();
+        }
+    });
+
+    app.on('before-quit', () => {
+        willClose = true;
+    });
+
+    mainWindow.on('show', () => {
+        willClose = false;
+    });
 }
