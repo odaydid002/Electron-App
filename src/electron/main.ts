@@ -4,6 +4,8 @@ import {getPreloadPath, getUIPath } from './pathResolver.js';
 import { createTray } from './tray.js';
 import { createMenu } from './menu.js';
 
+//Menu.setApplicationMenu(null); //Disable Menu
+
 app.on('ready', ()=>{
     const mainWindow = new BrowserWindow({
         webPreferences: {
@@ -24,7 +26,7 @@ app.on('ready', ()=>{
 
     createTray(mainWindow); 
     handleCloseEvent(mainWindow); 
-    createMenu(mainWindow);
+    createMenu(mainWindow); //Comment to Disable Custom Menu
 })
 
 function pollTest(mainWindow: BrowserWindow) {
