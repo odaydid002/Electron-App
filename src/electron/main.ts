@@ -21,7 +21,16 @@ app.on('ready', ()=>{
         return staticTest();
     })
 
-    new Tray(path.join(getAssetsPath(), 'trayIcon.png'))
+    const trayIcon =
+        process.platform === 'win32'
+            ? 'trayIcon.ico'
+            : process.platform === 'darwin'
+            ? 'trayIconTemplate.png'
+            : 'trayIcon.png';
+
+    const tray = new Tray(path.join(getAssetsPath(), trayIcon));
+
+    tray.setToolTip('Electron App');
 })
 
 function pollTest(mainWindow: BrowserWindow) {
