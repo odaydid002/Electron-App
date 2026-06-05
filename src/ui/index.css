@@ -19,4 +19,12 @@ body {
 	color: var(--text);
 }
 
+header button {
+	all: unset;
+	-webkit-app-region: no-drag;
+}
+
+header{
+	-webkit-app-region: drag;
+}
 

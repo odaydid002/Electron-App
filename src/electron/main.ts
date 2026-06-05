@@ -1,5 +1,5 @@
 import {app, BrowserWindow} from 'electron';
-import {ipcMainHandle, ipcWebContentsSend, isDev } from './util.js';
+import {ipcMainHandle, ipcMainOn, ipcWebContentsSend, isDev } from './util.js';
 import {getPreloadPath, getUIPath } from './pathResolver.js';
 import { createTray } from './tray.js';
 import { createMenu } from './menu.js';
@@ -11,7 +11,7 @@ app.on('ready', ()=>{
         webPreferences: {
             preload: getPreloadPath(),
         },
-        //frame: false, //disable frame
+        frame: false, //disable default frame
     });
     if (isDev()) {
         mainWindow.loadURL('http://localhost:5123')
@@ -25,9 +25,23 @@ app.on('ready', ()=>{
         return staticTest();
     })
 
+    ipcMainOn("sendFrameAction", (payload) => {
+        switch (payload) {
+            case "CLOSE":
+                mainWindow.close();
+            break;
+            case "MINIMIZE":
+                mainWindow.minimize();
+            break;
+            case "MAXIMIZE":
+                mainWindow.maximize();
+            break;
+        }
+    })
+
     createTray(mainWindow); 
     handleCloseEvent(mainWindow); 
-    createMenu(mainWindow); //Comment to Disable Custom Menu
+    createMenu(mainWindow); //Create Custom Menu
 })
 
 function pollTest(mainWindow: BrowserWindow) {

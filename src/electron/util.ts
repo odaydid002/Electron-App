@@ -13,6 +13,16 @@ export function ipcMainHandle<Key extends keyof EventPayLoadMapping>(key: Key, h
     })
 }
 
+export function ipcMainOn<Key extends keyof EventPayLoadMapping>(
+    key: Key, 
+    handler: (payload: EventPayLoadMapping[Key]) => void) 
+    {
+        ipcMain.on(key, (event, payload) => {
+            validateEventFrame(event.senderFrame);
+            return handler(payload)
+        })
+    }
+
 export function ipcWebContentsSend<Key extends keyof EventPayLoadMapping> (
     key: Key,
     webContents: WebContents,
