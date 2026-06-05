@@ -28,6 +28,7 @@ app.on('ready', ()=>{
     ipcMainOn("sendFrameAction", (payload) => {
         switch (payload) {
             case "CLOSE":
+                mainWindow.close();
             break;
             case "MINIMIZE":
                 mainWindow.minimize();
