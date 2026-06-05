@@ -28,7 +28,6 @@ app.on('ready', ()=>{
     ipcMainOn("sendFrameAction", (payload) => {
         switch (payload) {
             case "CLOSE":
-                mainWindow.close();
             break;
             case "MINIMIZE":
                 mainWindow.minimize();
@@ -39,6 +38,9 @@ app.on('ready', ()=>{
                 }else{
                     mainWindow.maximize();
                 }
+            break;
+            case "RESTORE":
+                mainWindow.restore();
             break;
         }
     })
