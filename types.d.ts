@@ -2,7 +2,7 @@ type Test = {
     message: string;
 }
 
-type FrameWindowAction = 'CLOSE' | 'MINIMIZE' | 'MAXIMIZE';
+type FrameWindowAction = 'CLOSE' | 'MINIMIZE' | 'MAXIMIZE' | 'RESTORE';
 
 type EventPayLoadMapping = {
     test: Test;
