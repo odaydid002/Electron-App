@@ -10,7 +10,8 @@ app.on('ready', ()=>{
     const mainWindow = new BrowserWindow({
         webPreferences: {
             preload: getPreloadPath(),
-        }
+        },
+        //frame: false, //disable frame
     });
     if (isDev()) {
         mainWindow.loadURL('http://localhost:5123')
