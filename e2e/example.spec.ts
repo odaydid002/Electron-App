@@ -1,7 +1,21 @@
-import { test, expect, _electron } from '@playwright/test';
+import { test, _electron, expect } from '@playwright/test';
 
 let electronApp: Awaited<ReturnType<typeof _electron.launch>>;
 let mainPage: Awaited<ReturnType<typeof electronApp.firstWindow>>;
+
+async function waitForPreloadScript() {
+  return new Promise((resolve) => {
+    const interval = setInterval(async () => {
+      const electronBridge = await mainPage.evaluate(() => {
+        return (window as Window & { electron?: unknown }).electron;
+      });
+      if (electronBridge) {
+        clearInterval(interval);
+        resolve(true)
+      }
+    }, 100)
+  })
+}
 
 test.beforeEach(async () => {
   electronApp = await _electron.launch({
@@ -9,6 +23,7 @@ test.beforeEach(async () => {
     env: {NODE_ENV: 'development'},
   });
   mainPage = await electronApp.firstWindow();
+  await waitForPreloadScript()
 });
 
 test.afterEach(async () => {
