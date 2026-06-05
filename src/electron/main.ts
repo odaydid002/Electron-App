@@ -34,7 +34,11 @@ app.on('ready', ()=>{
                 mainWindow.minimize();
             break;
             case "MAXIMIZE":
-                mainWindow.maximize();
+                if(mainWindow.isMaximized()){
+                    mainWindow.restore()
+                }else{
+                    mainWindow.maximize();
+                }
             break;
         }
     })
