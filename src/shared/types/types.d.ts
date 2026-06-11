@@ -20,7 +20,8 @@ type EventPayLoadMapping = {
 type UnsubscribeFunction = () => void;
 
 interface AppStoreSchema {
-    theme: Theme
+    theme: Theme,
+    language: Language
 }
 
 interface Window {

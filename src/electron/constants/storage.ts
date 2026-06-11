@@ -1,3 +1,4 @@
 export const storageDefaults: AppStoreSchema = {
-    theme: 'system'
+    theme: 'system',
+    language: 'en'
 }
