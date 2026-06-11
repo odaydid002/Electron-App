@@ -2,6 +2,78 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../../assets/fonts/Poppins-Light.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../assets/fonts/Poppins-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../../assets/fonts/Poppins-Medium.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../assets/fonts/Poppins-Bold.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../../assets/fonts/Poppins-Black.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 300;
+  src: url('../../assets/fonts/Tajawal-Light.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../../assets/fonts/Tajawal-Regular.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../../assets/fonts/Tajawal-Bold.ttf') format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Tajawal';
+  font-style: normal;
+  font-weight: 900;
+  src: url('../../assets/fonts/Tajawal-Black.ttf') format('truetype');
+  font-display: swap;
+}
+
 :root {
 	--bg: #ffffff; /* background */
 	--text: #111827; /* foreground */
@@ -18,6 +90,7 @@
 	margin: 0;
 	box-sizing: border-box;
 	scroll-behavior: smooth;
+	font-family: ;
 }
 
 body {
@@ -25,6 +98,11 @@ body {
   	padding-inline: 0;
 	background: var(--bg);
 	color: var(--text);
+	font-family: 'Poppins', sans-serif;
+}
+
+[dir='rtl'] body {
+  font-family: 'Tajawal', sans-serif;
 }
 
 header button {
