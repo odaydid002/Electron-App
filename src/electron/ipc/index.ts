@@ -1,7 +1,6 @@
 import { ipcMain, WebContents, WebFrameMain } from "electron"
 import { getUIPath } from "../utils/paths.js";
 import { pathToFileURL } from "url";
-import type { EventPayLoadMapping } from "../types/index.js";
 
 export function isDev(): boolean {
     return process.env.NODE_ENV === "development"

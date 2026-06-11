@@ -12,7 +12,7 @@ export function createMainWindow(): BrowserWindow {
     webPreferences: {
       preload: getPreloadPath(),
     },
-    frame: true,
+    frame: false,
   });
 
   // Load application URL

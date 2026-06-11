@@ -3,8 +3,6 @@
  * Exposes secure API to renderer process for IPC communication
  */
 
-import type { EventPayLoadMapping } from '../types/index.js';
-
 const electron = require('electron');
 
 electron.contextBridge.exposeInMainWorld('electron', {
@@ -16,12 +14,15 @@ electron.contextBridge.exposeInMainWorld('electron', {
   sendFrameAction: (payload) => {
     ipcSend('sendFrameAction', payload);
   },
+  getStorage: (payload) => ipcInvoke('getStorage', payload),
+  setStorage: (payload) => ipcInvoke('setStorage', payload),
 } satisfies Window['electron']);
 
 function ipcInvoke<Key extends keyof EventPayLoadMapping>(
-  key: Key
+  key: Key,
+  ...args: unknown[]
 ): Promise<EventPayLoadMapping[Key]> {
-  return electron.ipcRenderer.invoke(key);
+  return electron.ipcRenderer.invoke(key, ...args);
 }
 
 function ipcOn<Key extends keyof EventPayLoadMapping>(

@@ -1,35 +1,84 @@
+import { useCallback, useEffect, useState } from "react";
+import { Storage } from "../services/storage";
 
-function applyTheme(theme: Theme):null | void {
+const storage = new Storage();
 
-  if (theme === 'system') return null;
-
-  if (theme === 'dark') {
-    document.documentElement.classList.add('dark')
-  } else {
-    document.documentElement.classList.remove('dark')
-  }
+function resolveSystemTheme(): Theme {
+  return window.matchMedia?.("(prefers-color-scheme: dark)")?.matches
+    ? "dark"
+    : "light";
 }
 
-export function initTheme():void {
-  try {
-    const stored = null
-    if (stored){
-      applyTheme(stored)
-    }else{
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-      const system = prefersDark ? 'dark' : 'light'
-      applyTheme(system)
+function applyTheme(theme: Theme) {
+  document.documentElement.classList.toggle("dark", theme === "dark");
+}
+
+export function useTheme() {
+  const [theme, setThemeState] = useState<Theme>("system");
+  const [initialized, setInitialized] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  /**
+   * Initialize theme from storage or system preference
+   */
+  const initialize = useCallback(async () => {
+    try {
+      const stored = (await storage.get("theme")) as Theme | null;
+
+      const finalTheme =
+        stored && stored !== "system"
+          ? stored
+          : resolveSystemTheme();
+
+      setThemeState(finalTheme);
+      applyTheme(finalTheme);
+
+      setInitialized(true);
+    } catch (error) {
+      console.error("Theme initialization failed:", error);
+
+      const fallback = resolveSystemTheme();
+      setThemeState(fallback);
+      applyTheme(fallback);
+    } finally {
+      setLoading(false);
     }
-  } catch (e) {
-    console.error(e)
-  }
-}
+  }, []);
 
-export async function setTheme(theme: Theme) {
-  applyTheme(theme)
-}
+  /**
+   * Auto initialize on mount
+   */
+  useEffect(() => {
+    initialize();
+  }, [initialize]);
 
-export default {
-  initTheme,
-  setTheme,
+  /**
+   * Change theme manually
+   */
+  const setTheme = useCallback(async (newTheme: Theme) => {
+    const finalTheme =
+      newTheme === "system"
+        ? resolveSystemTheme()
+        : newTheme;
+
+    setThemeState(finalTheme);
+    applyTheme(finalTheme);
+
+    try {
+      await storage.set({
+        key: "theme",
+        value: newTheme,
+      });
+    } catch (error) {
+      console.error("Failed to persist theme:", error);
+    }
+  }, []);
+
+  return {
+    theme,
+    setTheme,
+    initialize,
+    initialized,
+    loading,
+  };
 }

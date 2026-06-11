@@ -5,7 +5,6 @@
 
 import { BrowserWindow } from 'electron';
 import { ipcMainOn } from '../index.js';
-import type { EventPayLoadMapping } from '../../types/index.js';
 
 export function registerWindowHandlers(mainWindow: BrowserWindow) {
   ipcMainOn<'sendFrameAction'>('sendFrameAction', (payload: EventPayLoadMapping['sendFrameAction']) => {
