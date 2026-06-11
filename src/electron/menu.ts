@@ -1,5 +1,5 @@
 import { app, BrowserWindow, Menu } from "electron";
-import { isDev } from "./util.js";
+import { isDev } from "./ipc/index.js";
 
 export function createMenu(mainWindow: BrowserWindow) {
     Menu.setApplicationMenu(Menu.buildFromTemplate([

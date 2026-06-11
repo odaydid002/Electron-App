@@ -1,5 +1,5 @@
 import path from "path";
-import { getAssetsPath } from "./pathResolver.js";
+import { getAssetsPath } from "./utils/pathResolver.js";
 import { app, BrowserWindow, Menu, Tray } from "electron";
 
 export function createTray(mainWindow: BrowserWindow){
